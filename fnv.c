@@ -1,3 +1,6 @@
+// Author: Suresh Sundriyal
+// License: CC0 - No rights reserved.
+
 #include "fnv.h"
 
 static const uint64_t fnv_prime = 0x100000001B3L;

@@ -1,3 +1,6 @@
+# Author: Suresh Sundriyal
+# License: CC0 - No rights reserved.
+
 cdef extern from "<stdint.h>" nogil:
     ctypedef unsigned long long uint64_t
 

@@ -1,3 +1,6 @@
+# Author: Suresh Sundriyal
+# License: CC0 - No rights reserved.
+
 import struct
 
 def fnv(byte_string):
