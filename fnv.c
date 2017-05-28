@@ -1,4 +1,4 @@
-#include "fnv1a.h"
+#include "fnv.h"
 
 static const uint64_t fnv_prime = 0x100000001B3L;
 

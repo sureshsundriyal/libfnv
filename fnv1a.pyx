@@ -1,7 +1,7 @@
 cdef extern from "<stdint.h>" nogil:
     ctypedef unsigned long long uint64_t
 
-cdef extern from "fnv1a.h":
+cdef extern from "fnv.h":
     void c_fnv1a_64 "fnv1a_64"(const char *foo,
                                const int length,
                                uint64_t *hash)

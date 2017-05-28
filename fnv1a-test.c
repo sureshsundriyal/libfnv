@@ -1,4 +1,4 @@
-#include "fnv1a.h"
+#include "fnv.h"
 #include <stdio.h>
 
 int main(void) {
