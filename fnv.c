@@ -2,7 +2,7 @@
 
 static const uint64_t fnv_prime = 0x100000001B3L;
 
-void fnv1a_64(const char *foo, const int length, uint64_t *hash) {
+void fnv1a_64(const char *msg, const int length, uint64_t *hash) {
 	int len = 0;
 
 	if (*hash == 0L) {
@@ -10,7 +10,7 @@ void fnv1a_64(const char *foo, const int length, uint64_t *hash) {
 	}
 
 	while (len < length) {
-		*hash = ( (*hash ^ foo[len++]) * fnv_prime )
+		*hash = ( (*hash ^ msg[len++]) * fnv_prime )
 			& 0xffffffffffffffff;
 	}
 }
