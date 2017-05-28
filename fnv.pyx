@@ -14,7 +14,6 @@ cdef extern from "fnv.h":
                                uint64_t *hash)
 
 cdef class fnv1_64:
-
     cdef readonly uint64_t h
     name        = "fnv1_64"
     digestsize  = 8
@@ -38,7 +37,6 @@ cdef class fnv1_64:
         self.h = <uint64_t>0
 
 cdef class fnv1a_64:
-
     cdef readonly uint64_t h
     name        = "fnv1a_64"
     digestsize  = 8
