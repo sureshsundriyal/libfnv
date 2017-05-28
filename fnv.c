@@ -13,8 +13,7 @@ void fnv1_64(const char *msg, const int length, uint64_t *hash) {
 	}
 
 	while (len < length) {
-		*hash = ( (*hash * fnv_prime) ^ msg[len++] )
-			& 0xffffffffffffffff;
+		*hash = ( (*hash * fnv_prime) ^ msg[len++] );
 	}
 }
 
@@ -26,7 +25,6 @@ void fnv1a_64(const char *msg, const int length, uint64_t *hash) {
 	}
 
 	while (len < length) {
-		*hash = ( (*hash ^ msg[len++]) * fnv_prime )
-			& 0xffffffffffffffff;
+		*hash = ( (*hash ^ msg[len++]) * fnv_prime );
 	}
 }
