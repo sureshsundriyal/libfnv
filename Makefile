@@ -9,7 +9,7 @@ fnv-test: test/fnv-test.c fnv.c fnv.h
 
 sharedlib: fnv.h fnv.c
 	gcc -O3 -c fnv.c -o fnv.o
-	gcc -O3 -o libfnv.so -shared fnv.c
+	gcc -O3 -o libfnv.so -shared fnv.o
 
 pythonlib: sharedlib fnv.pyx
 	$(CYTHON) -$(PYTHON_VER) fnv.pyx -o fnv-py.c
