@@ -2,10 +2,10 @@ PYTHON_VER = 2
 PYTHON_CONFIG = python-config
 CYTHON = cython
 
-all: fnv1a-test sharedlib pythonlib
+all: fnv-test sharedlib pythonlib
 
-fnv1a-test: fnv-test.c fnv.c fnv.h
-	gcc -O3 -o fnv-test fnv-test.c fnv.c
+fnv-test: test/fnv-test.c fnv.c fnv.h
+	gcc -O3 -I. -o test/fnv-test test/fnv-test.c fnv.c
 
 sharedlib: fnv.h fnv.c
 	gcc -O3 -c fnv.c -o fnv.o
@@ -17,4 +17,4 @@ pythonlib: sharedlib fnv.pyx
 	gcc fnv-py.o fnv.o -o fnv.so -shared `$(PYTHON_CONFIG) --ldflags`
 
 clean:
-	rm -rf fnv-test libfnv.so fnv.{o,so} fnv-py.{c,o} libfnv.so.dSYM
+	rm -rf test/fnv-test libfnv.so fnv.{o,so} fnv-py.{c,o} libfnv.so.dSYM
