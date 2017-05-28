@@ -4,8 +4,8 @@ CYTHON = cython
 
 all: fnv1a-test sharedlib pythonlib
 
-fnv1a-test: fnv1a-test.c fnv.c fnv.h
-	gcc -O3 -o fnv1a-test fnv1a-test.c fnv.c
+fnv1a-test: fnv-test.c fnv.c fnv.h
+	gcc -O3 -o fnv-test fnv-test.c fnv.c
 
 sharedlib: fnv.h fnv.c
 	gcc -O3 -c fnv.c -o fnv.o
@@ -17,4 +17,4 @@ pythonlib: sharedlib fnv1a.pyx
 	gcc fnv1a-py.o fnv.o -o fnv.so -shared `$(PYTHON_CONFIG) --ldflags`
 
 clean:
-	rm -rf fnv1a-test libfnv.so fnv.o fnv1a-py.{c,o} fnv.so libfnv.so.dSYM
+	rm -rf fnv-test libfnv.so fnv.o fnv1a-py.{c,o} fnv.so libfnv.so.dSYM
