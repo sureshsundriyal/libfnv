@@ -4,8 +4,19 @@ cdef extern from "<stdint.h>" nogil:
 cdef extern from "fnv1a.h":
     void fnv1a(const char *foo, const int length, uint64_t *hash);
 
+cdef class fnv1a64:
+    cdef readonly uint64_t h
 
-def test():
-    cdef uint64_t x = <uint64_t>0
-    fnv1a("hello world", len("hello world") + 1, &x)
-    print x
+    def __cinit__(self, s=None):
+        self.h = <uint64_t>0
+        if s is not None:
+            fnv1a(s, len(s), &self.h)
+
+    cpdef void update(self, const char *s):
+        fnv1a(s, len(s), &self.h)
+
+    cpdef unsigned long long digest(self):
+        return self.h
+
+    cpdef char * hexdigest(self):
+        return b'%x' % self.h
