@@ -14,13 +14,18 @@ cdef extern from "fnv.h":
                                uint64_t *hash)
 
 cdef class fnv1_64:
-    cdef readonly uint64_t h
-    name        = "fnv1_64"
-    digestsize  = 8
-    digest_size = 8
+    cdef uint64_t h
+    cdef readonly char *name
+    cdef readonly uint64_t blocksize
+    cdef readonly uint64_t digestsize
+    cdef readonly uint64_t digest_size
 
     def __cinit__(self, s=None):
-        self.h = <uint64_t>0
+        self.h              = <uint64_t>0
+        self.name           = "fnv1_64"
+        self.blocksize      = <uint64_t>64
+        self.digestsize     = <uint64_t>8
+        self.digest_size    = <uint64_t>8
         if s is not None:
             c_fnv1_64(s, len(s), &self.h)
 
@@ -37,13 +42,18 @@ cdef class fnv1_64:
         self.h = <uint64_t>0
 
 cdef class fnv1a_64:
-    cdef readonly uint64_t h
-    name        = "fnv1a_64"
-    digestsize  = 8
-    digest_size = 8
+    cdef uint64_t h
+    cdef readonly char *name
+    cdef readonly uint64_t blocksize
+    cdef readonly uint64_t digestsize
+    cdef readonly uint64_t digest_size
 
     def __cinit__(self, s=None):
-        self.h = <uint64_t>0
+        self.h              = <uint64_t>0
+        self.name           = "fnv1a_64"
+        self.blocksize      = <uint64_t>64
+        self.digestsize     = <uint64_t>8
+        self.digest_size    = <uint64_t>8
         if s is not None:
             c_fnv1a_64(s, len(s), &self.h)
 
