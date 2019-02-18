@@ -1,10 +1,12 @@
 # Author: Suresh Sundriyal
 # License: CC0 - No rights reserved.
 
+import cython
+
 cdef extern from "<stdint.h>" nogil:
     ctypedef unsigned long long uint64_t
 
-cdef extern from "fnv.h":
+cdef extern from "fnv.h" nogil:
     void c_fnv1_64 "fnv1_64"(const char *msg,
                                const int length,
                                uint64_t *hash)
@@ -13,6 +15,7 @@ cdef extern from "fnv.h":
                                const int length,
                                uint64_t *hash)
 
+@cython.final
 cdef class fnv1_64:
     cdef uint64_t h
     cdef readonly char *name
@@ -27,20 +30,24 @@ cdef class fnv1_64:
         self.digestsize     = <uint64_t>8
         self.digest_size    = <uint64_t>8
         if s is not None:
-            c_fnv1_64(s, len(s), &self.h)
+            self.update(s)
 
-    cpdef void update(self, const char *s):
-        c_fnv1_64(s, len(s), &self.h)
+    cpdef void update(self, bytes s):
+        cdef const char * c_string = s
+        cdef Py_ssize_t length = len(s)
+        with nogil:
+            c_fnv1_64(c_string, length, &self.h)
 
-    cpdef unsigned long long digest(self):
+    cpdef uint64_t digest(self) nogil:
         return self.h
 
     cpdef char * hexdigest(self):
         return b'%x' % self.h
 
-    cpdef void reset(self):
+    cpdef void reset(self) nogil:
         self.h = <uint64_t>0
 
+@cython.final
 cdef class fnv1a_64:
     cdef uint64_t h
     cdef readonly char *name
@@ -55,12 +62,15 @@ cdef class fnv1a_64:
         self.digestsize     = <uint64_t>8
         self.digest_size    = <uint64_t>8
         if s is not None:
-            c_fnv1a_64(s, len(s), &self.h)
+            self.update(s)
 
-    cpdef void update(self, const char *s):
-        c_fnv1a_64(s, len(s), &self.h)
+    cpdef void update(self, bytes s):
+        cdef const char * c_string = s
+        cdef Py_ssize_t length = len(s)
+        with nogil:
+            c_fnv1a_64(c_string, length, &self.h)
 
-    cpdef unsigned long long digest(self):
+    cpdef uint64_t digest(self) nogil:
         return self.h
 
     cpdef char * hexdigest(self):
